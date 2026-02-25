@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Habit Formation Coach AI</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #f0f4f8;
+      color: #1a202c;
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    header {
+      background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%);
+      color: white;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    header h1 { font-size: 1.9rem; font-weight: 700; letter-spacing: -0.5px; }
+    header p  { margin-top: 0.4rem; opacity: 0.8; font-size: 0.95rem; }
+    .badge {
+      display: inline-block;
+      margin-top: 0.7rem;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 20px;
+      padding: 0.25rem 0.9rem;
+      font-size: 0.78rem;
+      letter-spacing: 0.5px;
+    }
+
+    /* ── Main layout ── */
+    main { max-width: 820px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+    /* ── Input card ── */
+    .input-card {
+      background: white;
+      border-radius: 14px;
+      padding: 2rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      margin-bottom: 2rem;
+    }
+    .input-card h2 { font-size: 1.1rem; margin-bottom: 0.4rem; color: #2d3748; }
+    .input-card p  { font-size: 0.88rem; color: #718096; margin-bottom: 1.2rem; }
+
+    textarea {
+      width: 100%;
+      padding: 0.9rem 1rem;
+      border: 2px solid #e2e8f0;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-family: inherit;
+      resize: vertical;
+      min-height: 90px;
+      transition: border-color 0.2s;
+      color: #2d3748;
+    }
+    textarea:focus { outline: none; border-color: #667eea; }
+
+    button[type="submit"] {
+      margin-top: 1rem;
+      width: 100%;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 0.85rem 1.5rem;
+      font-size: 1.05rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.1s;
+    }
+    button[type="submit"]:hover  { opacity: 0.92; }
+    button[type="submit"]:active { transform: scale(0.99); }
+
+    .error-box {
+      background: #fff5f5; border: 1px solid #feb2b2;
+      color: #c53030; border-radius: 8px;
+      padding: 0.75rem 1rem; margin-top: 1rem;
+      font-size: 0.9rem;
+    }
+
+    /* ── Plan sections ── */
+    .plan-header {
+      background: white;
+      border-radius: 14px;
+      padding: 1.5rem 2rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      border-left: 5px solid #667eea;
+    }
+    .plan-header h2 { font-size: 1rem; text-transform: uppercase; letter-spacing: 1px; color: #667eea; }
+    .plan-header .goal-text { font-size: 1.2rem; font-weight: 600; color: #2d3748; margin-top: 0.4rem; }
+
+    .section-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-bottom: 1.2rem; }
+    @media (max-width: 600px) { .section-grid { grid-template-columns: 1fr; } }
+
+    .section-card {
+      background: white;
+      border-radius: 14px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+    }
+    .section-card.full { grid-column: 1 / -1; }
+
+    .section-icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
+    .section-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #a0aec0;
+      margin-bottom: 0.4rem;
+    }
+    .section-content {
+      font-size: 1rem;
+      color: #2d3748;
+      line-height: 1.6;
+      font-weight: 500;
+    }
+    .kb-cite {
+      display: inline-block;
+      margin-top: 0.7rem;
+      font-size: 0.72rem;
+      color: #805ad5;
+      background: #faf5ff;
+      border: 1px solid #e9d8fd;
+      border-radius: 5px;
+      padding: 0.2rem 0.5rem;
+    }
+
+    /* ── Env tips ── */
+    .env-list { list-style: none; padding: 0; }
+    .env-list li {
+      padding: 0.4rem 0 0.4rem 1.4rem;
+      position: relative;
+      color: #2d3748;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+    .env-list li::before {
+      content: "✓";
+      position: absolute; left: 0;
+      color: #48bb78; font-weight: 700;
+    }
+
+    /* ── Tracker ── */
+    .tracker-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 0.5rem;
+      margin-top: 0.8rem;
+    }
+    .tracker-day {
+      background: #f7fafc;
+      border: 2px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 0.7rem 0.3rem;
+      text-align: center;
+    }
+    .tracker-day .day-name { font-size: 0.65rem; color: #a0aec0; text-transform: uppercase; }
+    .tracker-day .day-box  {
+      width: 28px; height: 28px;
+      border: 2px solid #cbd5e0;
+      border-radius: 6px;
+      margin: 0.4rem auto 0;
+    }
+
+    /* ── Pitfall ── */
+    .pitfall-card {
+      background: #fffaf0;
+      border: 1px solid #fbd38d;
+      border-radius: 14px;
+      padding: 1.2rem 1.5rem;
+      margin-bottom: 1.2rem;
+    }
+    .pitfall-card h3 { font-size: 0.85rem; color: #c05621; margin-bottom: 0.4rem; }
+    .pitfall-card p  { font-size: 0.93rem; color: #744210; line-height: 1.6; }
+
+    /* ── Citations ── */
+    .citations {
+      background: #f7fafc;
+      border-radius: 12px;
+      padding: 1.2rem 1.5rem;
+      margin-top: 1.2rem;
+    }
+    .citations h3 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: #a0aec0; margin-bottom: 0.7rem; }
+    .citations ul { list-style: none; padding: 0; }
+    .citations li { font-size: 0.78rem; color: #805ad5; padding: 0.2rem 0; font-family: monospace; }
+
+    /* ── Two-minute rule ── */
+    .two-min-card {
+      background: linear-gradient(135deg, #ebf8ff, #e9d8fd);
+      border-radius: 14px;
+      padding: 1.2rem 1.5rem;
+      margin-bottom: 1.2rem;
+    }
+    .two-min-card h3 { font-size: 0.85rem; color: #2b6cb0; margin-bottom: 0.4rem; }
+    .two-min-card p  { font-size: 0.93rem; color: #2d3748; }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.8rem;
+      color: #a0aec0;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>🧠 Habit Formation Coach AI</h1>
+  <p>Your personal coach based on the <em>Atomic Habits</em> framework</p>
+  <span class="badge">University Assignment — Build a Specialized AI Assistant</span>
+</header>
+
+<main>
+  <!-- Input Form -->
+  <div class="input-card">
+    <h2>What habit do you want to build?</h2>
+    <p>Describe your goal in plain language — e.g. "I want to read 20 pages every morning" or "Start meditating for 10 minutes daily"</p>
+    <form method="POST" action="/">
+      <textarea
+        name="goal"
+        placeholder="e.g. I want to start exercising for 30 minutes each morning..."
+        required
+      >{{ goal }}</textarea>
+      {% if error %}
+        <div class="error-box">⚠ {{ error }}</div>
+      {% endif %}
+      <button type="submit">✨ Generate My Habit Plan</button>
+    </form>
+  </div>
+
+  {% if plan %}
+
+  <!-- Plan Header -->
+  <div class="plan-header">
+    <div class="section-label">Your Habit Plan</div>
+    <div class="goal-text">🎯 {{ plan.goal }}</div>
+  </div>
+
+  <!-- Identity + Implementation -->
+  <div class="section-grid">
+
+    <div class="section-card">
+      <div class="section-icon">🪞</div>
+      <div class="section-label">1 · Identity Statement</div>
+      <div class="section-content">{{ plan.identity }}</div>
+      <span class="kb-cite">[KB: AtomicHabits_Summary.md — Identity-Based Habits]</span>
+    </div>
+
+    <div class="section-card">
+      <div class="section-icon">🗓</div>
+      <div class="section-label">2 · Implementation Intention</div>
+      <div class="section-content">{{ plan.implementation }}</div>
+      <span class="kb-cite">[KB: HabitTemplates.md — Template 2]</span>
+    </div>
+
+    <div class="section-card">
+      <div class="section-icon">🔗</div>
+      <div class="section-label">3 · Habit Stack</div>
+      <div class="section-content">{{ plan.stack }}</div>
+      <span class="kb-cite">[KB: HabitTemplates.md — Template 3]</span>
+    </div>
+
+    <div class="section-card">
+      <div class="section-icon">🏠</div>
+      <div class="section-label">4 · Environment Design</div>
+      <ul class="env-list">
+        {% for tip in plan.env_tips %}
+          <li>{{ tip }}</li>
+        {% endfor %}
+      </ul>
+      <span class="kb-cite">[KB: AtomicHabits_Summary.md — Environment Design]</span>
+    </div>
+
+  </div>
+
+  <!-- Two-Minute Rule -->
+  <div class="two-min-card">
+    <h3>⏱ Two-Minute Rule Starter</h3>
+    <p>{{ plan.two_min }}</p>
+  </div>
+
+  <!-- Weekly Tracker -->
+  <div class="section-card full" style="margin-bottom: 1.2rem;">
+    <div class="section-icon">📊</div>
+    <div class="section-label">5 · Weekly Tracker — Week 1</div>
+    <div class="tracker-grid">
+      {% for day in plan.tracker %}
+        <div class="tracker-day">
+          <div class="day-name">{{ day.day[:3] }}</div>
+          <div class="day-box"></div>
+        </div>
+      {% endfor %}
+    </div>
+    <span class="kb-cite" style="display:block; margin-top:0.8rem;">[KB: HabitTemplates.md — Template 5, Weekly Tracker]</span>
+  </div>
+
+  <!-- Pitfall Warning -->
+  <div class="pitfall-card">
+    <h3>⚠ Common Pitfall to Avoid</h3>
+    <p>{{ plan.pitfall }}</p>
+  </div>
+
+  <!-- KB Citations -->
+  <div class="citations">
+    <h3>Knowledge Base Citations</h3>
+    <ul>
+      {% for cite in plan.kb_citations %}
+        <li>{{ cite }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  {% endif %}
+
+</main>
+
+<footer>
+  Habit Formation Coach AI &nbsp;·&nbsp; Based on <em>Atomic Habits</em> by James Clear &nbsp;·&nbsp; MIT License
+</footer>
+
+</body>
+</html>
