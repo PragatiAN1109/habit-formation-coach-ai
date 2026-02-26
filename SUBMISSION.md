@@ -14,32 +14,25 @@
 | System Prompt | `docs/SYSTEM_PROMPT.md` | ✅ Complete |
 | Assignment Writeup (personality, goals, 6 functions) | `docs/ASSIGNMENT_WRITEUP.md` | ✅ Complete |
 | Sample Interactions (all 6 functions) | `docs/SAMPLE_INTERACTIONS.md` | ✅ Complete |
-| Demo Script | `docs/DEMO_SCRIPT.md` | ✅ Complete |
 | Reflection (150–200 words) | `docs/REFLECTION.md` | ✅ Complete |
 | Knowledge Base — Core Framework | `kb/AtomicHabits_Summary.md` | ✅ Complete |
 | Knowledge Base — Habit Templates | `kb/HabitTemplates.md` | ✅ Complete |
 | Knowledge Base — Common Pitfalls | `kb/CommonPitfalls.md` | ✅ Complete |
 | Flask Application | `app/server.py` | ✅ Complete |
 | App Template | `app/templates/index.html` | ✅ Complete |
-| Demo Video | See link below | ⬜ Add link before submitting |
+| Demo Video | See link below | ✅ Complete |
 
 ---
 
-## Demo Video
+## 🎬 Demo Video
 
-> **🎬 Video Link:** `[PASTE YOUR SCREEN RECORDING LINK HERE]`
->
-> Recommended tools to record:
-> - **Loom** (free, instant shareable link) — https://loom.com
-> - **OBS Studio** (free, local recording) — https://obsproject.com
-> - **macOS:** Cmd + Shift + 5 → record screen → upload to Google Drive/YouTube
-> - **Windows:** Win + G (Game Bar) → record → upload to Google Drive/YouTube
->
-> Upload to Google Drive, YouTube (unlisted), or Loom, then paste the link above.
+**[▶ Watch Demo Recording — Google Drive](https://drive.google.com/file/d/1TN477dpEMz1YqYbsrtIutVE37S5yFsOi/view?usp=sharing)**
+
+> Duration: ~16 minutes | Recorded: February 25, 2026
 
 ---
 
-## How to Run the App Locally (for demo recording)
+## How to Run the App Locally
 
 ```bash
 # 1. Clone the repository
