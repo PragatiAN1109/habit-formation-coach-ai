@@ -10,9 +10,15 @@
 
 ---
 
+## 🎬 Demo Video
+
+**[▶ Watch Demo Recording — Google Drive](https://drive.google.com/file/d/1TN477dpEMz1YqYbsrtIutVE37S5yFsOi/view?usp=sharing)**
+
+---
+
 ## 📌 Overview
 
-The **Habit Formation Coach AI** helps users build lasting habits using the science-backed principles from *Atomic Habits*. It generates personalized habit plans using identity-based design, implementation intentions, habit stacking, environment design, and weekly tracking — with full knowledge base citations.
+The **Habit Formation Coach AI** helps users build lasting habits using the science-backed principles from *Atomic Habits*. It generates personalized habit plans using identity-based design, implementation intentions, habit stacking, environment design, and weekly tracking — with full academic-style citations traceable to the source material.
 
 ---
 
@@ -21,26 +27,27 @@ The **Habit Formation Coach AI** helps users build lasting habits using the scie
 ```
 habit-formation-coach-ai/
 ├── README.md                        ← You are here
+├── SUBMISSION.md                    ← Submission checklist + video link
 ├── LICENSE                          ← MIT
 ├── .gitignore
 │
 ├── docs/                            ← Assignment documentation
 │   ├── SYSTEM_PROMPT.md             ← Assistant persona & interaction rules
 │   ├── ASSIGNMENT_WRITEUP.md        ← Full writeup with all 6 functions
-│   ├── DEMO_SCRIPT.md               ← 4-5 minute structured demo script
+│   ├── SAMPLE_INTERACTIONS.md       ← Polished sample output for all 6 functions
 │   └── REFLECTION.md                ← 150-200 word reflection
 │
-├── kb/                              ← Knowledge base (3 files)
+├── kb/                              ← Knowledge base (3 reference documents)
 │   ├── AtomicHabits_Summary.md      ← Core framework concepts
-│   ├── HabitTemplates.md            ← 7 habit design templates
-│   └── CommonPitfalls.md            ← 8 common pitfalls + solutions
+│   ├── HabitTemplates.md            ← Habit design templates
+│   └── CommonPitfalls.md            ← Common failure modes + solutions
 │
 └── app/                             ← Flask application
-    ├── server.py                    ← Main app + deterministic logic
+    ├── server.py                    ← Main app + deterministic plan logic
     ├── requirements.txt             ← Flask dependency
     ├── README.md                    ← How to run locally
     └── templates/
-        └── index.html               ← Single-page UI
+        └── index.html               ← Single-page UI (dark theme)
 ```
 
 ---
@@ -50,11 +57,11 @@ habit-formation-coach-ai/
 | # | Function | Description |
 |---|----------|-------------|
 | 1 | **Knowledge Q&A** | Progressive-depth answers about habit science |
-| 2 | **Habit Setup Guide** | Step-by-step personalized plan (identity → tracker) |
+| 2 | **Habit Setup Guide** | Full plan: identity → loop → stack → environment → tracker |
 | 3 | **Real-World Connections** | Case studies connecting theory to everyday life |
-| 4 | **Critical Thinking Prompts** | Reflective questions to deepen engagement |
-| 5 | **Personalized Assessment** | Diagnostic questions → tailored recommendations |
-| 6 | **Skill Development Tracking** | Weekly visual tracker with "never miss twice" coaching |
+| 4 | **Critical Thinking Prompts** | 3 psychology-grounded reflective questions per failure mode |
+| 5 | **Personalized Assessment** | Scored evaluation (X/10) with strengths, gaps, and revised plan |
+| 6 | **Skill Development Tracking** | 4-week tracker with identity review and escalation path |
 
 ---
 
@@ -78,25 +85,28 @@ Open **[http://localhost:5000](http://localhost:5000)** in your browser.
 
 ## 📊 What the App Generates
 
-For any habit goal you enter, the app produces:
+For any habit goal entered, the app produces an 8-section structured plan:
 
-1. **Identity Statement** — `[KB: AtomicHabits_Summary.md — Identity-Based Habits]`
-2. **Implementation Intention** — `[KB: HabitTemplates.md — Template 2]`
-3. **Habit Stack** — `[KB: HabitTemplates.md — Template 3]`
-4. **Environment Design Tips** — `[KB: AtomicHabits_Summary.md — Environment Design]`
-5. **Two-Minute Rule Starter** — `[KB: AtomicHabits_Summary.md — The Two-Minute Rule]`
-6. **Weekly Tracker** — `[KB: HabitTemplates.md — Template 5]`
-7. **Pitfall Warning** — `[KB: CommonPitfalls.md — Pitfall 1]`
+| Section | Content | Citation |
+|---------|---------|----------|
+| 1 | Habit Loop Analysis (Cue/Craving/Response/Reward) | *(Atomic Habits — The Habit Loop)* |
+| 2 | Identity Statement | *(Atomic Habits — Identity-Based Habits)* |
+| 3 | Implementation Intention | *(Atomic Habits — Implementation Intentions)* |
+| 4 | Habit Stack | *(Atomic Habits — Habit Stacking)* |
+| 5 | Environment Design (law-labeled table) | *(Atomic Habits — Environment Design)* |
+| 6 | Two-Minute Rule Starter | *(Atomic Habits — The Two-Minute Rule)* |
+| 7 | Weekly Tracker + Assessment Score | *(Atomic Habits — Habit Tracking)* |
+| 8 | Behavioral Risk Factor | *(Atomic Habits — The Four Laws)* |
 
 ---
 
-## 📚 Knowledge Base
+## 📚 Citation Format
 
-The assistant cites all recommendations using the format:
+All recommendations use academic-style citations:
 ```
-[KB: filename — section]
+(Atomic Habits — Concept Name)
 ```
-If not found in KB, the assistant says: *"Not found in KB — general guidance below."*
+If content draws on general behavioral science rather than the book directly, the app states: *"General behavioral science principle (not directly from Atomic Habits)."*
 
 ---
 
@@ -106,4 +116,4 @@ MIT — see [LICENSE](LICENSE)
 
 ---
 
-*Built with care for the "Build a Specialized AI Assistant" university assignment.*
+*Built for the "Build a Specialized AI Assistant" university assignment · Northeastern University · 2026*
