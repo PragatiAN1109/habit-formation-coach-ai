@@ -1,10 +1,7 @@
 """
-Habit Formation Coach AI — Flask App v2
-Quality Standard: Top 25% Submission
-
-Upgraded output: Habit Loop Analysis, 4-Law alignment,
-Assessment scoring, structured response hierarchy.
-No external API calls — deterministic KB-grounded logic.
+Habit Formation Coach AI — Flask App v2.1
+Citation style: (Atomic Habits — Concept Name)
+No internal file references in any output.
 
 Run with: python server.py → http://localhost:5000
 """
@@ -16,8 +13,7 @@ app = Flask(__name__)
 
 # ---------------------------------------------------------------------------
 # KNOWLEDGE BASE: Identity Statements
-# [KB: HabitTemplates.md — Template 1, Identity Statement]
-# [KB: AtomicHabits_Summary.md — Identity-Based Habits]
+# (Atomic Habits — Identity-Based Habits)
 # ---------------------------------------------------------------------------
 IDENTITY_MAP = {
     "read":     "I am the type of person who invests in deliberate, consistent learning.",
@@ -43,8 +39,8 @@ IDENTITY_MAP = {
 
 # ---------------------------------------------------------------------------
 # KNOWLEDGE BASE: Habit Loop Analysis
-# [KB: AtomicHabits_Summary.md — The Habit Loop]
-# [KB: AtomicHabits_Summary.md — The Four Laws of Behavior Change]
+# (Atomic Habits — The Habit Loop)
+# (Atomic Habits — The Four Laws of Behavior Change)
 # ---------------------------------------------------------------------------
 HABIT_LOOP_MAP = {
     "read": {
@@ -135,7 +131,7 @@ HABIT_LOOP_MAP = {
 
 # ---------------------------------------------------------------------------
 # KNOWLEDGE BASE: Habit Stacks
-# [KB: HabitTemplates.md — Template 3, Habit Stacking]
+# (Atomic Habits — Habit Stacking)
 # ---------------------------------------------------------------------------
 HABIT_STACK_MAP = {
     "read":    "After I pour my morning coffee, I will open my book to the current page.",
@@ -157,8 +153,8 @@ HABIT_STACK_MAP = {
 }
 
 # ---------------------------------------------------------------------------
-# KNOWLEDGE BASE: Environment Design
-# [KB: AtomicHabits_Summary.md — Environment Design]
+# KNOWLEDGE BASE: Environment Design (action, law label)
+# (Atomic Habits — Environment Design)
 # ---------------------------------------------------------------------------
 ENV_DESIGN_MAP = {
     "read": [
@@ -198,7 +194,7 @@ ENV_DESIGN_MAP = {
     ],
     "sleep": [
         ("Wind-down alarm set 30 min before target sleep", "1st Law: Make It Obvious — timed cue"),
-        ("Screens removed from bedroom (or charged outside)", "1st Law inversion: Remove competing cue"),
+        ("Screens removed from bedroom or charged outside", "1st Law inversion: Remove competing cue"),
         ("Room temperature set to 65–68°F (18–20°C)", "3rd Law: Make It Easy — optimal sleep onset"),
     ],
     "study": [
@@ -225,103 +221,108 @@ ENV_DESIGN_MAP = {
 
 # ---------------------------------------------------------------------------
 # KNOWLEDGE BASE: Behavioral Risk Factors
-# [KB: CommonPitfalls.md]
+# (Atomic Habits — The Four Laws of Behavior Change)
 # ---------------------------------------------------------------------------
 RISK_MAP = {
     "read": (
         "Selecting books that are too dense or not genuinely interesting — "
         "the craving stage collapses when the response is unpleasant.",
-        "[KB: CommonPitfalls.md — Pitfall 2: Outcome Focus]"
+        "(Atomic Habits — The Four Laws of Behavior Change)"
     ),
     "meditat": (
         "Starting at 20+ minutes — entry cost triggers avoidance by day 5–8. "
         "Begin at 2–5 minutes maximum.",
-        "[KB: CommonPitfalls.md — Pitfall 1: Starting Too Big]"
+        "(Atomic Habits — The Two-Minute Rule)"
     ),
     "exercis": (
         "Programming workouts that are too intense in week one — "
         "soreness creates a negative reward signal and breaks the loop.",
-        "[KB: CommonPitfalls.md — Pitfall 1: Starting Too Big]"
+        "(Atomic Habits — The Two-Minute Rule)"
     ),
     "workout": (
         "Programming workouts that are too intense in week one — "
         "soreness creates a negative reward signal and breaks the loop.",
-        "[KB: CommonPitfalls.md — Pitfall 1: Starting Too Big]"
+        "(Atomic Habits — The Two-Minute Rule)"
     ),
     "run": (
         "Starting with distance/speed targets rather than time-based "
         "minimums — failure to hit targets triggers identity rejection.",
-        "[KB: CommonPitfalls.md — Pitfall 2: Outcome Focus]"
+        "(Atomic Habits — Identity-Based Habits)"
     ),
     "write": (
         "Setting word-count targets before the habit is automated — "
         "output pressure prevents the identity from forming.",
-        "[KB: CommonPitfalls.md — Pitfall 1: Starting Too Big]"
+        "(Atomic Habits — Identity-Based Habits)"
     ),
     "journal": (
         "Attempting to write full reflective entries before the behavior "
         "is established — 3 lines is sufficient in weeks 1–2.",
-        "[KB: CommonPitfalls.md — Pitfall 1: Starting Too Big]"
+        "(Atomic Habits — The Two-Minute Rule)"
     ),
     "sleep": (
         "Trying to change sleep time by more than 30 minutes immediately — "
         "circadian rhythm adjustment requires gradual phase shifting.",
-        "[KB: CommonPitfalls.md — Pitfall 7: Too Many Habits at Once]"
+        "General behavioral science principle (not directly from Atomic Habits)."
     ),
     "study": (
         "Choosing non-designated spaces (bed, couch) when schedule breaks — "
         "this erodes the context-specific cue built around the study location.",
-        "[KB: CommonPitfalls.md — Pitfall 6: No Environmental Support]"
+        "(Atomic Habits — Environment Design)"
     ),
     "water": (
         "Relying on thirst as the cue — thirst signals mild dehydration "
         "and is too weak and irregular to anchor a consistent habit.",
-        "[KB: CommonPitfalls.md — Pitfall 8: Ignoring the Cue]"
+        "(Atomic Habits — The Four Laws of Behavior Change)"
     ),
     "walk": (
         "Skipping the walk when weather is poor without a defined indoor "
         "alternative — the habit breaks when the plan lacks a contingency.",
-        "[KB: CommonPitfalls.md — Pitfall 5: Breaking the Streak]"
+        "(Atomic Habits — Habit Tracking)"
     ),
     "default": (
         "Relying on motivation as the primary driver after week two — "
         "motivation regresses to baseline; structural design must take over.",
-        "[KB: CommonPitfalls.md — Pitfall 3: Relying Solely on Motivation]"
+        "(Atomic Habits — The Four Laws of Behavior Change)"
     ),
 }
 
 # ---------------------------------------------------------------------------
-# Assessment Scoring Rubric
-# [KB: AtomicHabits_Summary.md — The Four Laws of Behavior Change]
+# Assessment Scoring
 # ---------------------------------------------------------------------------
 def compute_assessment_score(area):
-    """
-    Generates a structured assessment with score, strengths, gaps,
-    behavioral risks, and a revised plan.
-    Rubric: Cue(2) + Identity(2) + Environment(2) + Reward(1) + 2-min(1) + Tracking(1) + Contingency(1)
-    """
     base_scores = {
-        "read":    {"score": 7, "strengths": ["Clear cue opportunity (book placement)", "Strong craving alignment (intellectual growth)"],
-                    "gaps": ["No immediate reward defined (4th Law gap)", "Environment rarely pre-designed"]},
-        "meditat": {"score": 6, "strengths": ["Time-based cue is specifiable", "High identity-shift potential"],
-                    "gaps": ["Duration typically set too high (3rd Law violation)", "Reward stage undefined — loop doesn't close"]},
-        "exercis": {"score": 7, "strengths": ["Strong craving alignment", "Stackable onto morning routine"],
+        "read":    {"score": 7,
+                    "strengths": ["Clear cue opportunity (book placement)", "Strong craving alignment (intellectual growth)"],
+                    "gaps": ["No immediate reward defined — 4th Law gap", "Environment rarely pre-designed"]},
+        "meditat": {"score": 6,
+                    "strengths": ["Time-based cue is specifiable", "High identity-shift potential"],
+                    "gaps": ["Duration typically set too high — 3rd Law violation", "Reward stage undefined — loop doesn't close"]},
+        "exercis": {"score": 7,
+                    "strengths": ["Strong craving alignment", "Stackable onto morning routine"],
                     "gaps": ["Intensity often too high in week 1", "Identity statement missing in most plans"]},
-        "workout": {"score": 7, "strengths": ["Strong craving alignment", "Stackable onto morning routine"],
+        "workout": {"score": 7,
+                    "strengths": ["Strong craving alignment", "Stackable onto morning routine"],
                     "gaps": ["Intensity often too high in week 1", "Identity statement missing in most plans"]},
-        "run":     {"score": 6, "strengths": ["Physical cue (shoes) is highly designable", "Immediate reward (distance/time) is natural"],
-                    "gaps": ["Outcome framing (distance targets) before identity is set", "Weather contingency rarely planned"]},
-        "write":   {"score": 7, "strengths": ["Natural anchor habits available (coffee)", "Output is immediately trackable"],
+        "run":     {"score": 6,
+                    "strengths": ["Physical cue (shoes) is highly designable", "Immediate reward (distance/time) is natural"],
+                    "gaps": ["Outcome framing before identity is set", "Weather contingency rarely planned"]},
+        "write":   {"score": 7,
+                    "strengths": ["Natural anchor habits available (coffee)", "Output is immediately trackable"],
                     "gaps": ["Word-count pressure undermines identity formation", "No closure ritual defined"]},
-        "journal": {"score": 8, "strengths": ["Flexible minimum (3 lines)", "Strong immediate reward (closure)"],
+        "journal": {"score": 8,
+                    "strengths": ["Flexible minimum (3 lines)", "Strong immediate reward (cognitive closure)"],
                     "gaps": ["Cue often weak (vague 'at night')", "Phone competes directly for the cue window"]},
-        "sleep":   {"score": 5, "strengths": ["High motivation — sleep deprivation is aversive", "Timed cue (wind-down alarm) is effective"],
-                    "gaps": ["Multiple environmental changes required simultaneously", "Reward is delayed (next morning) — 4th Law risk"]},
-        "study":   {"score": 7, "strengths": ["Designatable specific location", "Pomodoro method provides built-in reward cycles"],
+        "sleep":   {"score": 5,
+                    "strengths": ["High motivation — sleep deprivation is aversive", "Timed cue (wind-down alarm) is effective"],
+                    "gaps": ["Multiple environmental changes required simultaneously", "Reward is delayed — 4th Law risk"]},
+        "study":   {"score": 7,
+                    "strengths": ["Designatable specific location", "Pomodoro method provides built-in reward cycles"],
                     "gaps": ["Context-cue eroded when studying in non-designated spaces", "No identity statement in typical plans"]},
-        "water":   {"score": 8, "strengths": ["Cue is highly controllable (glass placement)", "Immediate physiological reward is real"],
+        "water":   {"score": 8,
+                    "strengths": ["Cue is highly controllable (glass placement)", "Immediate physiological reward is real"],
                     "gaps": ["Timed reminders create phone-dependency", "No habit stack anchor defined"]},
-        "default": {"score": 5, "strengths": ["Motivation exists (reason stated)", "Goal is specific enough to design around"],
+        "default": {"score": 5,
+                    "strengths": ["Motivation exists (reason stated)", "Goal is specific enough to design around"],
                     "gaps": ["No cue defined", "No identity framing", "No environment designed", "No immediate reward"]},
     }
     return base_scores.get(area, base_scores["default"])
@@ -344,7 +345,6 @@ def extract_duration_and_activity(text):
         text, re.IGNORECASE
     )
     duration = m.group(0) if m else "a defined amount"
-
     a = re.search(
         r'(?:want to|start|build|develop|create|establish|maintain|try)\s+'
         r'(?:a\s+)?(?:daily\s+)?(.+?)(?:\s+habit|\s+every|\s+each|\s+for|\s+per|$)',
@@ -356,53 +356,49 @@ def extract_duration_and_activity(text):
 
 def generate_habit_plan(goal_text):
     """
-    Upgraded plan generator — v2.
-    Outputs: habit loop analysis, identity, implementation intention,
-    habit stack, environment design (with Law labels), Two-Minute Rule,
-    weekly tracker, behavioral risk assessment, and all KB citations.
-
-    [KB: HabitTemplates.md — Templates 1–5]
-    [KB: AtomicHabits_Summary.md — All sections]
-    [KB: CommonPitfalls.md — All pitfalls]
+    Generates a complete, citation-correct habit plan.
+    All citations use: (Atomic Habits — Concept Name)
+    No internal file references.
     """
     area = detect_goal_area(goal_text)
     duration, activity = extract_duration_and_activity(goal_text)
     clean_act = activity if len(activity) < 60 else goal_text[:60]
 
-    loop      = HABIT_LOOP_MAP.get(area, HABIT_LOOP_MAP["default"])
-    identity  = IDENTITY_MAP.get(area, IDENTITY_MAP["default"])
-    impl      = f"I will {clean_act} for {duration} at [your chosen time] in [your chosen location]."
-    stack     = HABIT_STACK_MAP.get(area, HABIT_STACK_MAP["default"])
-    env_tips  = ENV_DESIGN_MAP.get(area, ENV_DESIGN_MAP["default"])
-    two_min   = (f"Begin with 2 minutes of '{clean_act}' only — not the full version. "
-                 f"The identity is established by showing up, not by duration.")
-    tracker   = [{"day": d} for d in ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]]
+    loop     = HABIT_LOOP_MAP.get(area, HABIT_LOOP_MAP["default"])
+    identity = IDENTITY_MAP.get(area, IDENTITY_MAP["default"])
+    impl     = (f"I will {clean_act} for {duration} at [your chosen time] "
+                f"in [your chosen location].")
+    stack    = HABIT_STACK_MAP.get(area, HABIT_STACK_MAP["default"])
+    env_tips = ENV_DESIGN_MAP.get(area, ENV_DESIGN_MAP["default"])
+    two_min  = (f"Begin with 2 minutes of '{clean_act}' only — not the full version. "
+                f"The identity is established by showing up, not by duration.")
+    tracker  = [{"day": d} for d in
+                ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]]
     risk_text, risk_cite = RISK_MAP.get(area, RISK_MAP["default"])
-    assess    = compute_assessment_score(area)
+    assess   = compute_assessment_score(area)
 
     return {
-        "goal":        goal_text,
-        "area":        area,
-        "loop":        loop,
-        "identity":    identity,
-        "impl":        impl,
-        "stack":       stack,
-        "env_tips":    env_tips,
-        "two_min":     two_min,
-        "tracker":     tracker,
-        "risk_text":   risk_text,
-        "risk_cite":   risk_cite,
-        "assess":      assess,
+        "goal":      goal_text,
+        "area":      area,
+        "loop":      loop,
+        "identity":  identity,
+        "impl":      impl,
+        "stack":     stack,
+        "env_tips":  env_tips,
+        "two_min":   two_min,
+        "tracker":   tracker,
+        "risk_text": risk_text,
+        "risk_cite": risk_cite,
+        "assess":    assess,
         "citations": [
-            "[KB: AtomicHabits_Summary.md — The Habit Loop]",
-            "[KB: AtomicHabits_Summary.md — The Four Laws of Behavior Change]",
-            "[KB: AtomicHabits_Summary.md — Identity-Based Habits]",
-            "[KB: AtomicHabits_Summary.md — Implementation Intentions]",
-            "[KB: HabitTemplates.md — Template 2, Implementation Intention]",
-            "[KB: HabitTemplates.md — Template 3, Habit Stacking]",
-            "[KB: AtomicHabits_Summary.md — Environment Design]",
-            "[KB: AtomicHabits_Summary.md — The Two-Minute Rule]",
-            "[KB: HabitTemplates.md — Template 5, Weekly Tracker]",
+            "(Atomic Habits — The Habit Loop)",
+            "(Atomic Habits — The Four Laws of Behavior Change)",
+            "(Atomic Habits — Identity-Based Habits)",
+            "(Atomic Habits — Implementation Intentions)",
+            "(Atomic Habits — Habit Stacking)",
+            "(Atomic Habits — Environment Design)",
+            "(Atomic Habits — The Two-Minute Rule)",
+            "(Atomic Habits — Habit Tracking)",
             risk_cite,
         ],
     }
@@ -427,8 +423,8 @@ def index():
 
 if __name__ == "__main__":
     print("=" * 55)
-    print("  Habit Formation Coach AI  ·  v2.0")
-    print("  Quality Standard: Top 25% Submission")
+    print("  Habit Formation Coach AI  ·  v2.1")
+    print("  Citation style: (Atomic Habits — Concept)")
     print("  http://localhost:5000")
     print("=" * 55)
     app.run(debug=True, port=5000)
