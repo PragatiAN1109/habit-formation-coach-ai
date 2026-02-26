@@ -136,14 +136,30 @@
     .card.accent-left  { border-left: 3px solid var(--accent); }
     .card.accent-teal  { border-left: 3px solid var(--accent2); }
     .card.accent-gold  { border-left: 3px solid var(--accent3); }
-    .card.accent-red   { border-left: 3px solid var(--danger); }
 
     .card-label {
       font-size: 0.68rem; text-transform: uppercase;
       letter-spacing: 1.2px; color: var(--muted); margin-bottom: 0.6rem;
     }
     .card-body { font-size: 0.97rem; color: var(--text); line-height: 1.65; }
-    .card-body strong { color: #a78bfa; }
+
+    /* ── Citation tag — academic style ──────────────── */
+    .cite {
+      display: inline-block; margin-top: 0.65rem;
+      font-size: 0.72rem; color: #c4b5fd;
+      background: rgba(124,106,247,0.08);
+      border: 1px solid rgba(124,106,247,0.2);
+      border-radius: 4px; padding: 0.15rem 0.55rem;
+      font-style: italic;
+    }
+    .cite-nonbook {
+      display: inline-block; margin-top: 0.65rem;
+      font-size: 0.72rem; color: var(--muted);
+      background: rgba(123,130,166,0.08);
+      border: 1px solid rgba(123,130,166,0.2);
+      border-radius: 4px; padding: 0.15rem 0.55rem;
+      font-style: italic;
+    }
 
     /* ── Habit Loop Table ────────────────────────────── */
     .loop-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; margin-top: 0.5rem; }
@@ -155,17 +171,14 @@
     }
     .loop-table td { padding: 0.6rem 0.75rem; border-bottom: 1px solid rgba(46,51,80,0.5); vertical-align: top; }
     .loop-table tr:last-child td { border-bottom: none; }
-    .loop-stage {
-      font-size: 0.7rem; font-weight: 800; letter-spacing: 0.8px;
-      text-transform: uppercase; white-space: nowrap;
-    }
+    .loop-stage { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.8px; text-transform: uppercase; white-space: nowrap; }
     .stage-cue      { color: #7c6af7; }
     .stage-craving  { color: #f7b731; }
     .stage-response { color: #56cfb2; }
     .stage-reward   { color: #f06060; }
     .stage-law      { color: #a78bfa; }
-    .loop-value     { color: var(--text); }
-    .loop-law       { color: #a78bfa; font-size: 0.82rem; font-style: italic; }
+    .loop-value { color: var(--text); }
+    .loop-law   { color: #a78bfa; font-size: 0.82rem; font-style: italic; }
 
     /* ── 2-col grid ──────────────────────────────────── */
     .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
@@ -199,23 +212,17 @@
       border-radius: 10px; padding: 0.75rem 0.25rem; text-align: center;
     }
     .t-name { font-size: 0.6rem; text-transform: uppercase; color: var(--muted); letter-spacing: 0.5px; }
-    .t-box  {
-      width: 26px; height: 26px; margin: 0.4rem auto 0;
-      border: 1.5px solid var(--border); border-radius: 5px;
-    }
+    .t-box  { width: 26px; height: 26px; margin: 0.4rem auto 0; border: 1.5px solid var(--border); border-radius: 5px; }
     .tracker-rule { font-size: 0.78rem; color: var(--muted); margin-top: 0.9rem; }
     .tracker-rule strong { color: var(--accent2); }
 
     /* ── Assessment ──────────────────────────────────── */
-    .assess-header {
-      display: flex; align-items: center; gap: 1rem;
-      margin-bottom: 1.2rem;
-    }
+    .assess-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.2rem; }
     .score-circle {
       width: 64px; height: 64px; border-radius: 50%;
       background: conic-gradient(var(--accent) calc(var(--pct) * 1%), var(--surface2) 0);
       display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0; position: relative;
+      flex-shrink: 0;
     }
     .score-inner {
       width: 50px; height: 50px; background: var(--surface);
@@ -226,13 +233,9 @@
     .assess-meta p  { font-size: 0.78rem; color: var(--muted); margin-top: 0.2rem; }
 
     .assess-block { margin-bottom: 1rem; }
-    .ab-label {
-      font-size: 0.65rem; font-weight: 700; text-transform: uppercase;
-      letter-spacing: 1.2px; margin-bottom: 0.4rem;
-    }
+    .ab-label { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 0.4rem; }
     .ab-label.green { color: var(--accent2); }
     .ab-label.gold  { color: var(--accent3); }
-    .ab-label.red   { color: var(--danger); }
 
     .assess-list { list-style: none; padding: 0; }
     .assess-list li {
@@ -253,22 +256,16 @@
     }
     .risk-label { font-size: 0.67rem; text-transform: uppercase; letter-spacing: 1.2px; color: var(--danger); margin-bottom: 0.5rem; }
     .risk-body  { font-size: 0.9rem; color: #f0c0c0; line-height: 1.6; }
-    .risk-cite  { font-size: 0.75rem; color: var(--danger); font-family: var(--mono); margin-top: 0.5rem; opacity: 0.8; }
+    .risk-cite  { font-size: 0.73rem; color: #c4b5fd; font-style: italic; margin-top: 0.5rem; }
 
-    /* ── Citations ───────────────────────────────────── */
+    /* ── Citations panel ─────────────────────────────── */
     .citations {
       background: var(--surface2); border: 1px solid var(--border);
       border-radius: 12px; padding: 1.2rem 1.5rem; margin-top: 1.5rem;
     }
     .citations h4 { font-size: 0.67rem; text-transform: uppercase; letter-spacing: 1.2px; color: var(--muted); margin-bottom: 0.8rem; }
-    .cite-grid { display: flex; flex-direction: column; gap: 0.3rem; }
-    .cite-item { font-size: 0.75rem; color: #9f8ef7; font-family: var(--mono); }
-
-    /* ── KB cite tag ─────────────────────────────────── */
-    .kb { display: inline-block; margin-top: 0.65rem; font-size: 0.7rem;
-          color: #9f8ef7; background: rgba(124,106,247,0.1);
-          border: 1px solid rgba(124,106,247,0.25); border-radius: 4px;
-          padding: 0.15rem 0.5rem; font-family: var(--mono); }
+    .cite-grid { display: flex; flex-direction: column; gap: 0.35rem; }
+    .cite-item { font-size: 0.78rem; color: #c4b5fd; font-style: italic; }
 
     footer {
       text-align: center; padding: 2.5rem 1rem;
@@ -281,8 +278,8 @@
 
 <header>
   <h1>🧠 Habit Formation Coach AI</h1>
-  <p>Behavioral-science grounded coaching · <em>Atomic Habits</em> framework · KB-cited outputs</p>
-  <span class="badge">University Assignment — Build a Specialized AI Assistant · v2.0</span>
+  <p>Behavioral-science grounded coaching · Based on <em>Atomic Habits</em> by James Clear</p>
+  <span class="badge">University Assignment — Build a Specialized AI Assistant · v2.1</span>
 </header>
 
 <main>
@@ -313,30 +310,15 @@
     <table class="loop-table">
       <thead><tr><th>Stage</th><th>Your Habit</th></tr></thead>
       <tbody>
-        <tr>
-          <td><span class="loop-stage stage-cue">Cue</span></td>
-          <td><span class="loop-value">{{ plan.loop.cue }}</span></td>
-        </tr>
-        <tr>
-          <td><span class="loop-stage stage-craving">Craving</span></td>
-          <td><span class="loop-value">{{ plan.loop.craving }}</span></td>
-        </tr>
-        <tr>
-          <td><span class="loop-stage stage-response">Response</span></td>
-          <td><span class="loop-value">{{ plan.loop.response }}</span></td>
-        </tr>
-        <tr>
-          <td><span class="loop-stage stage-reward">Reward</span></td>
-          <td><span class="loop-value">{{ plan.loop.reward }}</span></td>
-        </tr>
-        <tr>
-          <td><span class="loop-stage stage-law">Law</span></td>
-          <td><span class="loop-law">{{ plan.loop.law }}</span></td>
-        </tr>
+        <tr><td><span class="loop-stage stage-cue">Cue</span></td><td><span class="loop-value">{{ plan.loop.cue }}</span></td></tr>
+        <tr><td><span class="loop-stage stage-craving">Craving</span></td><td><span class="loop-value">{{ plan.loop.craving }}</span></td></tr>
+        <tr><td><span class="loop-stage stage-response">Response</span></td><td><span class="loop-value">{{ plan.loop.response }}</span></td></tr>
+        <tr><td><span class="loop-stage stage-reward">Reward</span></td><td><span class="loop-value">{{ plan.loop.reward }}</span></td></tr>
+        <tr><td><span class="loop-stage stage-law">Law</span></td><td><span class="loop-law">{{ plan.loop.law }}</span></td></tr>
       </tbody>
     </table>
-    <span class="kb">[KB: AtomicHabits_Summary.md — The Habit Loop]</span>
-    <span class="kb">[KB: AtomicHabits_Summary.md — The Four Laws of Behavior Change]</span>
+    <span class="cite">(Atomic Habits — The Habit Loop)</span>
+    <span class="cite">(Atomic Habits — The Four Laws of Behavior Change)</span>
   </div>
 
   <!-- ════ SECTION 2: IDENTITY + IMPLEMENTATION ════ -->
@@ -345,12 +327,12 @@
     <div class="card accent-teal">
       <div class="card-label">🪞 Identity Statement</div>
       <div class="card-body">{{ plan.identity }}</div>
-      <span class="kb">[KB: AtomicHabits_Summary.md — Identity-Based Habits]</span>
+      <span class="cite">(Atomic Habits — Identity-Based Habits)</span>
     </div>
     <div class="card accent-left">
       <div class="card-label">🗓 Implementation Intention</div>
       <div class="card-body">{{ plan.impl }}</div>
-      <span class="kb">[KB: HabitTemplates.md — Template 2]</span>
+      <span class="cite">(Atomic Habits — Implementation Intentions)</span>
     </div>
   </div>
 
@@ -359,26 +341,22 @@
   <div class="card accent-teal">
     <div class="card-label">🔗 After I… I will…</div>
     <div class="card-body">{{ plan.stack }}</div>
-    <span class="kb">[KB: AtomicHabits_Summary.md — Habit Stacking]</span>
-    <span class="kb">[KB: HabitTemplates.md — Template 3]</span>
+    <span class="cite">(Atomic Habits — Habit Stacking)</span>
   </div>
 
   <!-- ════ SECTION 4: ENVIRONMENT DESIGN ════ -->
   <div class="section-divider"><div class="num">4</div><h3>Environment Design — Law-Labeled Interventions</h3></div>
   <div class="card accent-gold">
-    <div class="card-label">🏠 3 Specific Changes · Law Applied</div>
+    <div class="card-label">🏠 3 Specific Changes &nbsp;·&nbsp; Behavioral Mechanism</div>
     <table class="env-table">
-      <thead><tr><th>Action</th><th>Behavioral Mechanism</th></tr></thead>
+      <thead><tr><th>Action</th><th>Mechanism (Law Applied)</th></tr></thead>
       <tbody>
         {% for action, law in plan.env_tips %}
-        <tr>
-          <td class="env-action">{{ action }}</td>
-          <td class="env-law">{{ law }}</td>
-        </tr>
+        <tr><td class="env-action">{{ action }}</td><td class="env-law">{{ law }}</td></tr>
         {% endfor %}
       </tbody>
     </table>
-    <span class="kb">[KB: AtomicHabits_Summary.md — Environment Design]</span>
+    <span class="cite">(Atomic Habits — Environment Design)</span>
   </div>
 
   <!-- ════ SECTION 5: TWO-MINUTE RULE ════ -->
@@ -386,13 +364,13 @@
   <div class="two-min">
     <div class="tm-label">⏱ Minimum Viable Version — 3rd Law: Make It Easy</div>
     <div class="tm-body">{{ plan.two_min }}</div>
-    <span class="kb">[KB: AtomicHabits_Summary.md — The Two-Minute Rule]</span>
+    <span class="cite">(Atomic Habits — The Two-Minute Rule)</span>
   </div>
 
   <!-- ════ SECTION 6: WEEKLY TRACKER ════ -->
   <div class="section-divider"><div class="num">6</div><h3>Weekly Tracker — Week 1</h3></div>
   <div class="card">
-    <div class="card-label">📊 Consistency Log · Target: 5 / 7 minimum</div>
+    <div class="card-label">📊 Consistency Log &nbsp;·&nbsp; Target: 5 / 7 minimum</div>
     <div class="tracker-wrap">
       {% for day in plan.tracker %}
       <div class="tracker-day">
@@ -402,8 +380,7 @@
       {% endfor %}
     </div>
     <p class="tracker-rule"><strong>Never miss twice.</strong> One miss is a data point. Two misses is the beginning of a new (bad) habit.</p>
-    <span class="kb">[KB: AtomicHabits_Summary.md — Tracking and Measurement]</span>
-    <span class="kb">[KB: HabitTemplates.md — Template 5]</span>
+    <span class="cite">(Atomic Habits — Habit Tracking)</span>
   </div>
 
   <!-- ════ SECTION 7: ASSESSMENT ════ -->
@@ -432,7 +409,7 @@
         {% for g in plan.assess.gaps %}<li>{{ g }}</li>{% endfor %}
       </ul>
     </div>
-    <span class="kb">[KB: AtomicHabits_Summary.md — The Four Laws of Behavior Change]</span>
+    <span class="cite">(Atomic Habits — The Four Laws of Behavior Change)</span>
   </div>
 
   <!-- ════ SECTION 8: BEHAVIORAL RISK ════ -->
@@ -443,9 +420,9 @@
     <div class="risk-cite">{{ plan.risk_cite }}</div>
   </div>
 
-  <!-- ════ KB CITATIONS ════ -->
+  <!-- ════ CITATIONS PANEL ════ -->
   <div class="citations">
-    <h4>Knowledge Base Citations — This Plan</h4>
+    <h4>References — This Plan</h4>
     <div class="cite-grid">
       {% for c in plan.citations %}
         <span class="cite-item">{{ c }}</span>
@@ -458,7 +435,7 @@
 </main>
 
 <footer>
-  Habit Formation Coach AI &nbsp;·&nbsp; v2.0 &nbsp;·&nbsp;
+  Habit Formation Coach AI &nbsp;·&nbsp; v2.1 &nbsp;·&nbsp;
   Based on <em>Atomic Habits</em> by James Clear &nbsp;·&nbsp;
   Top 25% Quality Standard &nbsp;·&nbsp; MIT License
 </footer>
