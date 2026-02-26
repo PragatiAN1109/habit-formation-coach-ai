@@ -12,16 +12,16 @@
 - [ ] Browser open at http://localhost:5000
 - [ ] Terminal hidden or minimized
 - [ ] Screen resolution clean (1280x720 minimum)
-- [ ] No notifications
+- [ ] No notifications / DND enabled
 
 ---
 
 ## Segment 1: Introduction (0:00 – 0:30)
 
 **What to say:**
-> "This is the Habit Formation Coach AI — a specialized assistant built on James Clear's Atomic Habits framework. It generates personalized habit plans using identity-based design, implementation intentions, habit stacking, and environment design. Let me show you how it works."
+> "This is the Habit Formation Coach AI — a specialized assistant built on James Clear's *Atomic Habits* framework. It generates structured, citation-backed habit plans using identity-based design, implementation intentions, habit stacking, and environment design. Every output is grounded in the book and labeled with its source concept. Let me show you how it works."
 
-**What to show:** Landing page of the app (clean, loaded, ready for input)
+**What to show:** Landing page of the app (clean, dark theme, loaded, ready for input)
 
 ---
 
@@ -34,22 +34,24 @@ I want to build a daily reading habit — 20 pages every morning.
 
 **What to show:**
 - Type the goal into the input field
-- Click "Generate My Habit Plan"
-- Walk through each output section:
-  1. **Identity Statement** — "I am the type of person who invests in learning every day."
-  2. **Implementation Intention** — "I will read 20 pages at 7:15 AM in my kitchen, after breakfast."
-  3. **Habit Stacking** — "After I finish my morning coffee, I will open my book and read."
-  4. **Environment Design** — "Place your current book on the breakfast table tonight."
-  5. **Weekly Tracker** — Show the 7-day tracker output
+- Click "Analyze & Generate Structured Plan"
+- Walk through each numbered output section:
 
-**Narration cues:**
-- "Notice how the plan starts with identity — not just a goal, but who you're becoming."
-- "The implementation intention removes decision fatigue — you know exactly when and where."
-- "Habit stacking borrows the momentum of an existing habit."
+  1. **Habit Loop Analysis** — Point to the color-coded table. *"This maps the goal to all four stages of the habit loop — Cue, Craving, Response, Reward — and identifies which of the Four Laws is being applied."*
+  2. **Identity Statement** — *"Every plan starts with identity, not the goal. The user becomes the person who reads daily before they track a single page."*
+  3. **Implementation Intention** — *"Exact when and where — this removes decision fatigue entirely."*
+  4. **Habit Stack** — *"The new habit is anchored to an existing one. The coffee ritual becomes the trigger."*
+  5. **Environment Design** — Point to the law-labeled table. *"Each environment change is labeled with the specific law it applies."*
+  6. **Two-Minute Rule** — *"The minimum viable version — identity first, volume second."*
+  7. **Weekly Tracker** — *"Seven checkboxes. Target is 5 out of 7, not perfection."*
+  8. **Assessment Panel** — *"The plan is scored against a rubric: cue, identity, environment, reward, two-minute rule, and tracking."*
+
+**Key narration point:**
+> "Notice every section carries a citation in the format *(Atomic Habits — Concept Name)* — every recommendation is traceable to the source material."
 
 ---
 
-## Segment 3: Second Example — Different Goal Area (2:00 – 3:00)
+## Segment 3: Second Example — Different Goal (2:00 – 3:00)
 
 **Prompt to type:**
 ```
@@ -58,39 +60,44 @@ I want to start meditating for 10 minutes each day.
 
 **What to show:**
 - New input, instant generation
-- Compare output to the previous example — different identity statement, different anchor habit
-- Point out the KB citation format in the output
+- Compare output to the previous — different identity statement, different anchor habit, different environment tips
+- Point to the References panel at the bottom
 
 **Narration cue:**
-> "Every plan is generated fresh — different goal, different identity, different habit stack. The underlying logic comes from the same knowledge base."
+> "Every plan is generated fresh — different goal, different identity, different habit stack, different behavioral risk. The underlying logic is identical: the Four Laws applied to whatever the user brings."
 
 ---
 
-## Segment 4: Knowledge Base Citation Demo (3:00 – 3:45)
+## Segment 4: Citation System Demo (3:00 – 3:45)
 
 **What to show:**
-- Point to any `[KB: ...]` citation in the output
-- Explain: "Every recommendation is traceable back to a specific section of the knowledge base. If the information isn't in the KB, the app says so explicitly."
+- Zoom in on any citation tag in the output — e.g. *(Atomic Habits — Habit Stacking)* on the habit stack card
+- Scroll to the References panel at the bottom of the plan
+- Point to the behavioral risk card
 
 **Narration cue:**
-> "This citation system ensures the assistant is grounded in the source material — not just generating generic advice."
+> "Every claim is attributed to a specific concept from the book. If a recommendation draws on general behavioral science rather than *Atomic Habits* directly, the app flags it explicitly. There is no ambiguity about what is book-grounded and what is not."
 
 ---
 
 ## Segment 5: Wrap-Up (3:45 – 4:30)
 
 **What to show:**
-- Return to the repository structure (GitHub page or file tree)
-- Briefly show: `kb/` folder, `docs/` folder, `app/` folder
+- Switch to the GitHub repository page
+- Briefly show: `kb/` folder (reference materials), `docs/` folder (system prompt, writeup, this script), `app/` folder
 
 **What to say:**
-> "The full project includes a three-file knowledge base, detailed documentation including a system prompt and writeup, and this clean Flask web app. Everything is designed to be demo-friendly, modular, and grounded in the Atomic Habits framework."
+> "The full project includes three reference documents derived from *Atomic Habits*, a complete system prompt defining the assistant's persona and interaction rules, a Flask web app with structured visual outputs, and full documentation for every function. Everything is grounded in the framework, visually clear for a demo, and traceable back to the source material."
 
 ---
 
-## Optional Extension: Pitfalls Callout (if time permits)
+## Optional Extension: Failure Mode / Assessment (if time permits, ~30 sec)
+
+**What to show:**
+- Point to the Behavioral Assessment panel (Section 7)
+- Point to the Behavioral Risk card (Section 8)
 
 **What to say:**
-> "One thing this assistant is designed to prevent: starting too big. The Two-Minute Rule is built into every plan — notice the habit stack always starts with the smallest possible action, not the ambitious outcome."
+> "Two sections that go beyond most habit tools: a scored evaluation of the plan's structural quality — does it have a cue, identity statement, environment design, immediate reward? And a specific behavioral risk flag for this habit type, with the failure mode named and cited."
 
-`[KB: CommonPitfalls.md — Pitfall 1: Starting Too Big]`
+*(Atomic Habits — The Two-Minute Rule)* — the most common risk for new habits.
